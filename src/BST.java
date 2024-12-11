@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * An Integer Binary Search Tree
  * @author: David Lutch
- * @version: December 6th, 2024
+ * @version: December 8th, 2024
  */
 
 public class BST {
@@ -88,15 +88,11 @@ public class BST {
             return null;
         }
         // If the node to the left is valid, then call the helper function again with that node and the orderList
-        if (node.getLeft() != null) {
-            getInorderHelperFunction(node.getLeft(), inOrderList);
-        }
+        getInorderHelperFunction(node.getLeft(), inOrderList);
         // Adds the node to the inOrderList
         inOrderList.add(node);
         // If the node to the right is valid, call the helper function again with that node and the orderList
-        if (node.getRight() != null) {
-            getInorderHelperFunction(node.getRight(), inOrderList);
-        }
+        getInorderHelperFunction(node.getRight(), inOrderList);
         return inOrderList;
     }
 
@@ -120,13 +116,9 @@ public class BST {
        // Adds the node to the preorderList
        preorderList.add(node);
        // If the node to the left is valid, then call the helper function with that node and the preorderList
-       if (node.getLeft() != null) {
-           getPreorderHelperFunction(node.getLeft(), preorderList);
-       }
+       getPreorderHelperFunction(node.getLeft(), preorderList);
        // if the node to the right is valid, then call the helper function with that node and the preorderList
-       if (node.getRight() != null) {
-           getPreorderHelperFunction(node.getRight(), preorderList);
-       }
+       getPreorderHelperFunction(node.getRight(), preorderList);
        return preorderList;
    }
 
@@ -148,13 +140,9 @@ public class BST {
             return null;
         }
         // If the node to the left is valid, then call the helper function with that node and the postorderList
-        if (node.getLeft() != null) {
-            getPostOrderHelperFunction(node.getLeft(), postorderList);
-        }
+        getPostOrderHelperFunction(node.getLeft(), postorderList);
         // If the node to the right is valid, then call the helper function with that node and the postorderList
-        if (node.getRight() != null) {
-            getPostOrderHelperFunction(node.getRight(), postorderList);
-        }
+        getPostOrderHelperFunction(node.getRight(), postorderList);
         // Add the node to the postorderList
         postorderList.add(node);
         return postorderList;
@@ -209,20 +197,31 @@ public class BST {
     // This helper function takes in a node and returns a boolean
     private boolean isValidBSTHelperFunction(BSTNode node) {
         // If the node doesn't exist, then return null
+        boolean leftSide = false;
+        boolean rightSide = false;
         if (node == null) {
-            return false;
+            return true;
+        }
+        if (node.getLeft() == null) {
+            leftSide = true;
         }
         // If the value of the node to the left is less than the value of the node, then call this helper function
         // Again with the node to the left.
-        if (node.getLeft().getVal() < node.getVal()) {
-            return isValidBSTHelperFunction(node.getLeft());
+        if (node.getLeft() != null && node.getLeft().getVal() < node.getVal()) {
+            leftSide = isValidBSTHelperFunction(node.getLeft());
+        }
+        if (node.getRight() == null) {
+            rightSide = true;
         }
         // If the value of the node to the right is greater than the value of the node, then call this helper function
         // Again with the node to the right
-        if (node.getRight().getVal() > node.getVal()) {
-            return isValidBSTHelperFunction(node.getRight());
+        if (node.getRight() != null && node.getRight().getVal() > node.getVal()) {
+            rightSide = isValidBSTHelperFunction(node.getRight());
         }
         // If the tree isn't invalid, then it must be a valid tree
+        if (!leftSide || !rightSide) {
+            return false;
+        }
         return true;
     }
 
@@ -253,5 +252,8 @@ public class BST {
         System.out.println("\nInorder traversal of binary tree is");
         sol = tree.getInorder();
         printNodes(sol);
+
+        System.out.println(tree.isValidBST());
+
     }
 }
