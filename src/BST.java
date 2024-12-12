@@ -3,7 +3,7 @@ import java.util.ArrayList;
 /**
  * An Integer Binary Search Tree
  * @author: David Lutch
- * @version: December 8th, 2024
+ * @version: December 11th, 2024
  */
 
 public class BST {
@@ -61,12 +61,12 @@ public class BST {
         if (node.getVal() == val) {
             return true;
         }
-        // If the value is greater than the current nodes value, call the helper function with the  node to the right
-        // and the value
+        // If the value is greater than the current nodes value, call the helper function with the node to the right
+        // And the value of that node
         if (node.getVal() < val) {
             return searchHelperFunction(node.getRight(),val);
         }
-        // Else this will call the helper function with the node to the left and the value
+        // Else this will call the helper function with the node to the left and it's value
         return searchHelperFunction(node.getLeft(),val);
     }
 
@@ -87,11 +87,11 @@ public class BST {
         if (node == null) {
             return null;
         }
-        // If the node to the left is valid, then call the helper function again with that node and the orderList
+        // Calls the helper function with the left node and the orderList
         getInorderHelperFunction(node.getLeft(), inOrderList);
         // Adds the node to the inOrderList
         inOrderList.add(node);
-        // If the node to the right is valid, call the helper function again with that node and the orderList
+        // Calls the helper function with the right node and the orderList
         getInorderHelperFunction(node.getRight(), inOrderList);
         return inOrderList;
     }
@@ -115,9 +115,9 @@ public class BST {
        }
        // Adds the node to the preorderList
        preorderList.add(node);
-       // If the node to the left is valid, then call the helper function with that node and the preorderList
+       // Calls the helper function with the left node and the preorderList
        getPreorderHelperFunction(node.getLeft(), preorderList);
-       // if the node to the right is valid, then call the helper function with that node and the preorderList
+       // Calls the helper function with the right node and the preorderList
        getPreorderHelperFunction(node.getRight(), preorderList);
        return preorderList;
    }
@@ -139,9 +139,9 @@ public class BST {
         if (node == null) {
             return null;
         }
-        // If the node to the left is valid, then call the helper function with that node and the postorderList
+        // Calls the helper function with the left node and the postorderList
         getPostOrderHelperFunction(node.getLeft(), postorderList);
-        // If the node to the right is valid, then call the helper function with that node and the postorderList
+        // Calls the helper function with the right node and the postorderList
         getPostOrderHelperFunction(node.getRight(), postorderList);
         // Add the node to the postorderList
         postorderList.add(node);
@@ -196,12 +196,14 @@ public class BST {
     }
     // This helper function takes in a node and returns a boolean
     private boolean isValidBSTHelperFunction(BSTNode node) {
-        // If the node doesn't exist, then return null
+        // Sets both the right and left side of the tree to the default value false
         boolean leftSide = false;
         boolean rightSide = false;
+        // If the node doesn't exist, then return null
         if (node == null) {
             return true;
         }
+        // If the node to the left is null, then the left side of the tree is valid
         if (node.getLeft() == null) {
             leftSide = true;
         }
@@ -210,6 +212,7 @@ public class BST {
         if (node.getLeft() != null && node.getLeft().getVal() < node.getVal()) {
             leftSide = isValidBSTHelperFunction(node.getLeft());
         }
+        // If the node to the right is null, then the right side of the tree is valid
         if (node.getRight() == null) {
             rightSide = true;
         }
